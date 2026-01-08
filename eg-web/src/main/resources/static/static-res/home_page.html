@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="../favicon/favicon.ico">
+    <title>Home Page</title>
+	<style>
+		.status-bar {
+			margin: 20px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+		.status-item {
+			margin: 5px 0;
+		}
+		.connection-status {
+			display: flex;
+			align-items: center;
+		}
+		.status-indicator {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			margin-right: 8px;
+		}
+		.connected {
+			background-color: #4CAF50;
+		}
+		.disconnected {
+			background-color: #f44336;
+		}
+	</style>
+  </head>
+  <body>
+	   <div class="text"></div>
+	   <div>
+		   <ul id="swaggerLinks"> 
+		   </ul> 
+		 </div>
+	
+		 <div class="status-bar">
+			<div class="status-item">
+				<strong>WebSocket:</strong>
+				<div class="connection-status">
+				<div id="wsIndicator" class="status-indicator disconnected"></div>
+				<span id="wsStatus">Disconnected</span>
+				</div>
+			</div>
+			</div>
+	    <div>
+	        <button type="button" onclick="logout()">Sign out</button>
+			<div id="logoutMessage" style="color: red; margin-top: 10px;"></div>
+	    </div>
+	</body>
+	<script>
+	
+	 const pathPrefix = location.href.replace(/static-res.*$/, '').replace(/\/$/, '');
+	 document.addEventListener('DOMContentLoaded', async () => {
+
+		try {
+			// fetch user info
+			const response = await fetch(pathPrefix + "/user/info", {
+				method: "POST"
+			});
+
+			if (!response.ok) {
+				window.location.href = pathPrefix + "/static-res/index.html";
+				return;
+			}
+
+			const data = await response.json();
+			const username = data.data.name;
+			document.getElementsByClassName("text")[0].innerHTML = `<h3>🎉Hello ${username}!!!</h3>`;
+
+			addSwaggerLinks(pathPrefix);
+			buildWebSocket(username);
+		} catch (error) {
+			console.error("failed to get user!", error);
+			window.location.href = pathPrefix + "/static-res/index.html";
+		}
+	 });
+
+    function addSwaggerLinks(prefix) {
+      const ul = document.getElementById('swaggerLinks');
+      ul.innerHTML = `
+        <li><a href="${prefix}/swagger-ui.html">👉 Swagger Console</a></li>
+        <li><a href="${prefix}/swagger-ui">👉 Swagger Open API Json</a></li>
+      `;
+    }
+
+    function buildWebSocket(user) {
+      const wsUrl = getWebSocketUrl() + pathPrefix.replace(location.origin, '') + "/websocket/common/" + user;
+      const webSocket = new WebSocket(wsUrl);
+
+      webSocket.addEventListener('open', () => {
+        console.log("WebSocket open");
+        showConnected();
+      });
+      webSocket.addEventListener('message', event => {
+        console.log("Received message:", event.data);
+      });
+      webSocket.addEventListener('error', event => {
+        console.error("WebSocket error:", event);
+        showDisconnected();
+      });
+      webSocket.addEventListener('close', event => {
+        console.log("WebSocket closed:", event);
+        showDisconnected();
+      });
+    }
+	
+	  function showConnected() {
+		  const wsIndicator = document.getElementById("wsIndicator");
+		  const wsStatus = document.getElementById("wsStatus");
+		  wsIndicator.classList.remove("disconnected");
+		  wsIndicator.classList.add("connected");
+		  wsStatus.textContent = "Connected";
+	  }
+	
+	  function showDisconnected() {
+		  const wsIndicator = document.getElementById("wsIndicator");
+		  const wsStatus = document.getElementById("wsStatus");
+		  wsIndicator.classList.remove("connected");
+		  wsIndicator.classList.add("disconnected");
+		  wsStatus.textContent = "Disconnected";
+	  }
+	
+	
+	
+	  function getWebSocketUrl() {
+		    const loc = window.location;
+		    let hostAndPort;
+	
+		    let hostname = loc.hostname;  
+		    let port = loc.port;   
+		    if (port) {
+		        hostAndPort = `${hostname}:${port}`;
+		    } else { 
+		        hostAndPort = `${hostname}${loc.protocol === 'https:' ? ':443' : ':80'}`;
+		    } 
+		    const wsProtocol = loc.protocol === 'https:' ? 'wss://' : 'ws://';
+		    return `${wsProtocol}${hostAndPort}`;
+	  } 
+	
+	
+	async function logout() { 
+		try {
+			const response = await fetch(pathPrefix + "/logout", {
+				method: "POST"
+			});
+			if (response.ok) {
+				window.location.href = pathPrefix + "/static-res/index.html";
+			} else {
+				showError("Logout failed: " + response.statusText);
+				console.error("Logout failed:", response.statusText);
+			}
+		} catch (error) {
+			showError("Error during logout: " + error.message);
+			console.error("Error during logout:", error);
+		}
+	}
+
+	function showError(message) {
+		const logoutMessage = document.getElementById("logoutMessage");
+		logoutMessage.textContent = message;
+		// clear message after 3 seconds
+		setTimeout(() => logoutMessage.textContent = "", 3000);
+	}
+	
+	</script>
+	</html>

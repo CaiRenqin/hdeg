@@ -1,0 +1,22 @@
+plugins {
+  id 'com.ymsl.solid.build.java-sonarscan'
+}
+
+subprojects {
+  //The same "GV" for all subprojects
+  group   = pjGroupName
+  version = pjVersion
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options.encoding = 'UTF-8'
+        options.charSet = 'UTF-8'
+        options.locale = 'ja_JP'
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
