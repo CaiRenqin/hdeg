@@ -17,10 +17,10 @@ import java.util.Collections;
 @Transactional(readOnly = true)
 public class VersionService {
 
-    private final VersionRepository versionRepository;
+    private final VersionRepository myRepository;
 
     public List<VersionResponseDTO> getLatestVersion() {
-        VersionEntity entity = versionRepository.findFirstByOrderByLastUpdatedDesc();
+        VersionEntity entity = myRepository.findFirstByOrderByLastUpdatedDesc();
         List<VersionEntity> entityList = Collections.singletonList(entity);
 
         return entityList.stream().map(this::convertEntityToDTO).toList();

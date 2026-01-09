@@ -13,10 +13,10 @@ import jp.co.yamaha_motor.eg.domain.service.hdegz12.VersionService;
 @RequiredArgsConstructor
 public class VersionFacade {
 
-    private final VersionService versionService;
+    private final VersionService myService;
 
     public List<VersionResponseDTO> getLatestVersion() {
-        return versionService.getLatestVersion();
+        return myService.getLatestVersion();
     }
 
 }

@@ -2,6 +2,7 @@ package jp.co.yamaha_motor.eg.web.test;
 
 import jp.co.yamaha_motor.eg.EgApplication;
 import jp.co.yamaha_motor.eg.domain.PJRedisConfiguration;
+
 import com.ymsl.solid.jpa.repository.JpaExtensionRepositoryFactoryBean;
 import com.ymsl.solid.websocket.config.WebSocketConfiguration;
 import org.springframework.boot.SpringApplication;

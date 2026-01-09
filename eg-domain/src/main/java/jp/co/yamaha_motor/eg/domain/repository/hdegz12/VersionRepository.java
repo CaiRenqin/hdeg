@@ -10,6 +10,6 @@ import jp.co.yamaha_motor.eg.domain.entity.VersionId;
 @Repository
 public interface VersionRepository extends JpaRepository<VersionEntity, VersionId> {
 
-    @Query("SELECT v FROM VersionEntity v ORDER BY v.lastUpdated DESC Limit 1")
+    @Query("SELECT v FROM VersionEntity v ORDER BY v.lastUpdated DESC LIMIT 1")
     VersionEntity findFirstByOrderByLastUpdatedDesc();
 }
