@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "model", schema = "egdb")
+@Table(name = "numbering", schema = "egdb")
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
@@ -28,6 +28,6 @@ public class NumberingEntity extends BaseEntity implements Serializable {
     @Column(name = "prefix", nullable = true, length = 10)
     private String prefix; // 接頭語
 
-    @Column(name = "num", nullable = true, length = 12)
-    private String num; // 番号
+    @Column(name = "num", nullable = true, precision = 10, scale = 0)
+    private Integer num; // 番号
 }
