@@ -32,8 +32,8 @@ public class HDEGZ12Controller {
     @Operation(summary = "バージョン情報検索", description = "バージョン情報を取得する(HDEGZ12-P001)")
     @PostMapping(value = "/HDEGZ12UpdateSheetGetVersionList", produces = MediaType.APPLICATION_XML_VALUE)
     public String getVersionList(HttpServletResponse response) {
-        HDEGZ12ResultDTO singleVersion = hdegz12Facade.getLatestVersion();
-        List<HDEGZ12ResultDTO> versionList = new ArrayList<>(List.of(singleVersion));
+        HDEGZ12ResultDTO version = hdegz12Facade.getLatestVersion();
+        List<HDEGZ12ResultDTO> versionList = new ArrayList<>(List.of(version));
         return XMLUtil.convDao2Xml(versionList, HDEGZ12ResultDTO.class);
     }
 }
