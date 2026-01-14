@@ -61,4 +61,4 @@ dependencyResolutionManagement {
         }
   }
 }
-include "eg-web", "eg-domain"
+include "hdeg-web", "hdeg-domain"

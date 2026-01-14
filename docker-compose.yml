@@ -1,7 +1,7 @@
 services:
   web:
-    image: eg-web:latest
-    container_name: eg-web
+    image: hdeg-web:latest
+    container_name: hdeg-web
     build:
       context: .
     ports:

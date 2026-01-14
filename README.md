@@ -1,9 +1,9 @@
-Eg project v1.2
+Hdeg project v1.2
 ===
 ![][bg-jdk] ![][bg-springboot] ![][bg-gradle] ![][bg-solid]
 
 ## Introduction
-A eg project based on YNA-G3-Solid framework code,  
+A hdeg project based on YNA-G3-Solid framework code,  
 
 The front-end part should be implemented in the front-end project.  
 
@@ -67,13 +67,13 @@ The source jars or dependencies can be downloaded by this command.
 gradlew clean build
 ```
 
-the target distributable war file will be found in `eg-web\build\libs\eg-web-1.0.0-boot.jar`.　　
+the target distributable war file will be found in `hdeg-web\build\libs\hdeg-web-1.0.0-boot.jar`.　　
 
 ### Run the jar file
 Execute in jar run mode:
 
 ```bash
-java -jar eg-web\build\libs\eg-web-1.0.0-boot.jar \ 
+java -jar hdeg-web\build\libs\hdeg-web-1.0.0-boot.jar \ 
 --spring.profiles.active=production \
 --DB_USERNAME=postgres \
 --DB_PASSWORD=postgres \
@@ -81,7 +81,7 @@ java -jar eg-web\build\libs\eg-web-1.0.0-boot.jar \
 ```
 or execute the jar directly
 ``` bash
-./eg-web/build/libs/eg-web-1.0.0-boot.jar
+./hdeg-web/build/libs/hdeg-web-1.0.0-boot.jar
 ```
 For the executable jar, the parameters can be set via environment variables.  
 
@@ -93,12 +93,12 @@ docker-compose up -d
 If folder name changed, `Dockerfile` should be modified too.  
 ``` Dockerfile
 # USER $USERNAME
-ARG BOOT_JAR_DIR=./eg-web/build/libs
+ARG BOOT_JAR_DIR=./hdeg-web/build/libs
 ```
 
 ## Modules 
 
-### Eg Domain
+### Hdeg Domain
 
 Default, it includes following tools:
 
@@ -112,7 +112,7 @@ Default, it includes following tools:
     was created. 
     In scenarios with multiple datasources and JTA distributed transaction manager, use 'Atomikos' instead of 'HikariCP'.
 
-### Eg Web
+### Hdeg Web
 
 - The embedded `Undertow` is the default web application server. You can
 replace it with the other type server named '`Tomcat`'. 
@@ -120,12 +120,12 @@ replace it with the other type server named '`Tomcat`'.
 - The JSP parsing feature is disabled by default.
 
 ## Login  
-- Login url: [http://localhost:8080/eg](http://localhost:8080/eg)
+- Login url: [http://localhost:8080/hdeg](http://localhost:8080/hdeg)
 - Login user/password: `user`/`user`
 
 ## Swagger
 Swagger spring doc is default included in this project.  
-Access [http://localhost:8080/eg/swagger-ui/index.html] to view the API document.  
+Access [http://localhost:8080/hdeg/swagger-ui/index.html] to view the API document.  
 Swagger is not active in production environment(by setting profile to `production`), but the packages would be included.  
 If want to exclude swagger packages in production environment, build the project with command:  
 ```shell

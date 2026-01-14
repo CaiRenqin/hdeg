@@ -6,7 +6,7 @@ on:
       - "**"
 
 env:
-  APP_PJ_PREFIX: "eg"
+  APP_PJ_PREFIX: "hdeg"
   PACKAGE_USERNAME: ${{ secrets.PACKAGE_USERNAME }}
   PACKAGE_REPO_TOKEN: ${{ secrets.PACKAGE_REPO_TOKEN }}
 

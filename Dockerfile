@@ -14,7 +14,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN mkdir -p /workspace/conf /workspace/logs /workspace/tmp && chown -R ${USER_UID}:${USER_GID} /workspace
 
 # USER $USERNAME
-ARG BOOT_JAR_DIR=./eg-web/build/libs
+ARG BOOT_JAR_DIR=./hdeg-web/build/libs
 ADD ${BOOT_JAR_DIR}/*-boot.jar /workspace/app.jar
 ADD docker/app.conf /workspace/conf/
 
