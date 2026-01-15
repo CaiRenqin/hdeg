@@ -8,8 +8,10 @@ import jp.co.yamaha_motor.hdeg.constants.CommonConstants;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.UtilityClass;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -18,49 +20,81 @@ import java.util.List;
 @UtilityClass
 public class XMLUtil {
 
+    private static final Logger LOG = LoggerFactory.getLogger(XMLUtil.class);
+
     /**
      * ListオブジェクトをXML文字列に変換する
      *
      * @param list:     変換対象の結果リスト
      * @param beanName: リスト内の要素となるBeanのクラスオブジェクト
-     * @param <T>       リスト内の要素の型（ジェネリックパラメータ）
+     * @param <T>       リスト内の要素の型
      * @return 生成されたXML文字列
      */
     public static <T> String convDao2Xml(List<T> list, Class<T> beanName) {
 
         try {
-            // JAXBコンテキストの初期化（ラッパークラスと対象Beanクラスを含む）
+            // JAXBコンテキストの初期化
             JAXBContext jaxbContext = JAXBContext.newInstance(ResultSetWrapper.class, beanName);
 
-            // Marshallerの作成（JAXBによるシリアライズツール）
+            // Marshallerの作成
             Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // インデントを有効にする（元のXStreamと同じ形式）
-            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true); // XMLヘッダーを自動生成しない（独自に拼接するため）
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // インデントを有効にする
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true); // XMLヘッダーを自動生成しない
 
-            // Listをラップし、元のXStreamのエイリアスロジックを実現
+            // マーシャリング前にNULLまたは空文字列のフィールドをクリアするリスナーを設定
+            marshaller.setListener(new Marshaller.Listener() {
+                @Override
+                public void beforeMarshal(Object source) {
+                    if (source != null && !source.getClass().equals(ResultSetWrapper.class)) {
+                        filterNullFields(source);
+                    }
+                }
+            });
+
             ResultSetWrapper<T> wrapper = new ResultSetWrapper<>(list);
 
-            // ListをXML文字列にシリアライズ
             StringWriter writer = new StringWriter();
             marshaller.marshal(wrapper, writer);
             String xml = writer.toString();
-
-            // 改行コードを取得し、XMLヘッダーと拼接する（元のロジックを保持）
             String crlf = System.getProperty("line.separator");
             return CommonConstants.XML_HEADER + crlf + xml;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ("XMLへの変換に失敗しました");
         }
     }
 
     /**
-     * ラッパークラス：元のXStreamのエイリアス設定に対応
-     * - @XmlRootElement(name = "resultSet") → 元のxs.alias("resultSet",
-     * List.class)に対応
-     * - @XmlElement(name = "row") → 元のxs.alias("row", beanName)に対応
+     * NULLまたは空文字列のフィールドをクリアする
      *
-     * @param <T> リスト内の要素の型
+     * @param obj 対象オブジェクト
+     */
+    private static void filterNullFields(Object obj) {
+        if (obj == null)
+            return;
+        Class<?> clazz = obj.getClass();
+
+        for (Method method : clazz.getMethods()) {
+            if (method.getName().startsWith("get")
+                    && method.getParameterCount() == 0
+                    && !Void.TYPE.equals(method.getReturnType())) {
+                try {
+                    Object value = method.invoke(obj);
+                    if (value == null || (value instanceof String str && str.trim().isEmpty())) {
+                        String setterName = "set" + method.getName().substring(3);
+                        Method setter = clazz.getMethod(setterName, method.getReturnType());
+                        setter.invoke(obj, (Object) null);
+                    }
+                } catch (Exception e) {
+                    LOG.error("フィールド{}の処理に失敗しました", method.getName(), e);
+                }
+            }
+        }
+    }
+
+    /**
+     * ラッパークラス
      */
     @NoArgsConstructor
     @AllArgsConstructor
