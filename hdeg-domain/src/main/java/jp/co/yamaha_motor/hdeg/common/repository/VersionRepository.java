@@ -1,4 +1,4 @@
-package jp.co.yamaha_motor.hdeg.hdeg.hdegz12.repository;
+package jp.co.yamaha_motor.hdeg.common.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,7 +8,7 @@ import jp.co.yamaha_motor.hdeg.common.entity.VersionEntity;
 import jp.co.yamaha_motor.hdeg.common.entity.VersionId;
 
 @Repository
-public interface HDEGZ12UpdateSheetGetVersionListRepository extends JpaRepository<VersionEntity, VersionId> {
+public interface VersionRepository extends JpaRepository<VersionEntity, VersionId> {
 
     /**
      * 最新のバージョン情報を取得する

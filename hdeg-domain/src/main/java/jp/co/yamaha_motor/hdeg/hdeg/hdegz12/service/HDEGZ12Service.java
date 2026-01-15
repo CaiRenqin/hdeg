@@ -5,17 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.yamaha_motor.hdeg.common.entity.VersionEntity;
+import jp.co.yamaha_motor.hdeg.common.repository.VersionRepository;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResultDTO;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.repository.HDEGZ12UpdateSheetGetVersionListRepository;
 
 import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class HDEGZ12UpdateSheetGetVersionListService {
+public class HDEGZ12Service {
 
-    private final HDEGZ12UpdateSheetGetVersionListRepository hdegz12Repository;
+    private final VersionRepository versionRepository;
 
     /**
      * 最新バージョンを取得する
@@ -23,7 +23,7 @@ public class HDEGZ12UpdateSheetGetVersionListService {
      * @return 最新バージョンのDTO
      */
     public HDEGZ12ResultDTO getLatestVersion() {
-        VersionEntity entity = hdegz12Repository.findFirstByOrderByLastUpdatedDesc();
+        VersionEntity entity = versionRepository.findFirstByOrderByLastUpdatedDesc();
         return convertEntityToDTO(entity);
     }
 

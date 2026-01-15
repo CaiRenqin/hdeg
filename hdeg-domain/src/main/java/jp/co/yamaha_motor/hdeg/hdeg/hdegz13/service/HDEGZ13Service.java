@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.yamaha_motor.hdeg.common.entity.NumberingEntity;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.repository.HDEGZ13UpdateSheetNumberingRepository;
+import jp.co.yamaha_motor.hdeg.common.repository.NumberingRepository;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class HDEGZ13UpdateSheetNumberingService {
-    private final HDEGZ13UpdateSheetNumberingRepository hdegz13Repository;
+public class HDEGZ13Service {
+    private final NumberingRepository numberingRepository;
 
     private static final Map<String, Integer> TABLE_NAME_MAP = new HashMap<>();
     // TABLE_NAMEに出現する可能性のある値
@@ -46,11 +46,11 @@ public class HDEGZ13UpdateSheetNumberingService {
      */
     @Transactional
     public String updateNumberingBySave(String tableName) {
-        NumberingEntity numbering = hdegz13Repository.findByTableName(tableName);
+        NumberingEntity numbering = numberingRepository.findByTableName(tableName);
         String fullNum = fillZero(numbering.getNum(), TABLE_NAME_MAP.get(tableName));
 
         numbering.setNum(numbering.getNum() + 1);
-        hdegz13Repository.save(numbering);
+        numberingRepository.save(numbering);
 
         return numbering.getPrefix() + fullNum;
     }

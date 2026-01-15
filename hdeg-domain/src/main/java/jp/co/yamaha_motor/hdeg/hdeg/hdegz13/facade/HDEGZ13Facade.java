@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13RequestDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ResultDTO;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.service.HDEGZ13UpdateSheetNumberingService;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.service.HDEGZ13Service;
 
 @Component
 @RequiredArgsConstructor
 public class HDEGZ13Facade {
-    private final HDEGZ13UpdateSheetNumberingService hdegz13Service;
+    private final HDEGZ13Service hdegz13Service;
 
     /**
      * 採番処理
