@@ -14,6 +14,6 @@ public interface TableInfoRepository extends JpaRepository<TableInfoEntity, Stri
      * @param tableId テーブルID
      * @return テーブル名英語
      */
-    @Query("SELECT t.tableNmE FROM TableInfoEntity t WHERE t.tableInfoId.tableId = :tableId")
+    @Query("SELECT t.tableNmE FROM TableInfoEntity t WHERE t.tableId = :tableId")
     String getTableNameByTableID(String tableId);
 }
