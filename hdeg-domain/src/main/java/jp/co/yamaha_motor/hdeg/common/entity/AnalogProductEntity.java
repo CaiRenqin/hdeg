@@ -3,6 +3,9 @@ package jp.co.yamaha_motor.hdeg.common.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -11,11 +14,15 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "analog_product", schema = "egdb")
+@DynamicInsert
+@DynamicUpdate
 @Getter
 @Setter
+@ToString()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class AnalogProductEntity extends BaseEntity implements Serializable {
     @Serial
@@ -27,6 +34,6 @@ public class AnalogProductEntity extends BaseEntity implements Serializable {
     @AttributeOverride(name = "anlProductId", column = @Column(name = "anl_product_id", nullable = false, length = 20)) // 類似プロダクトID
     private AnalogProductId analogProductId;
 
-    @Column(name = "sort_id", nullable = true, precision = 4, scale = 0)
+    @Column(name = "sort_id", precision = 4, scale = 0)
     private Integer sortId; // 表示順
 }

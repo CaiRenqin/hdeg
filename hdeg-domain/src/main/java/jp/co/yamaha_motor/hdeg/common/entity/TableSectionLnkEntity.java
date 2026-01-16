@@ -6,8 +6,10 @@ import java.io.Serializable;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -16,25 +18,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "numbering", schema = "egdb")
+@Table(name = "table_section_lnk", schema = "egdb")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @Setter
 @ToString()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class NumberingEntity extends BaseEntity implements Serializable {
+public class TableSectionLnkEntity extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @EmbeddedId
     @EqualsAndHashCode.Include
-    @Column(name = "table_name", nullable = false, length = 50)
-    private String tableName;// テーブル名
-
-    @Column(name = "prefix", length = 10)
-    private String prefix; // 接頭語
-
-    @Column(name = "num", precision = 10, scale = 0)
-    private Integer num; // 番号
+    @AttributeOverrides({
+            @AttributeOverride(name = "sectionId", column = @Column(name = "section_id", nullable = false, length = 5)), // セクションID
+            @AttributeOverride(name = "tableId", column = @Column(name = "table_id", nullable = false, length = 10)) }) // テーブルID
+    private TableSectionLnkId tableSectionLnkId;
 }

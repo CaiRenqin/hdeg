@@ -3,6 +3,9 @@ package jp.co.yamaha_motor.hdeg.common.entity;
 import java.io.Serial;
 import java.io.Serializable;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -11,11 +14,15 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "component_data", schema = "egdb")
+@DynamicInsert
+@DynamicUpdate
 @Getter
 @Setter
+@ToString()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class ComponentDataEntity extends BaseEntity implements Serializable {
     @Serial
@@ -23,13 +30,13 @@ public class ComponentDataEntity extends BaseEntity implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
-    @AttributeOverride(name = "compId", column = @Column(name = "comp_data_id", nullable = false, length = 20))
-    @AttributeOverride(name = "compTableId", column = @Column(name = "comp_table_id", nullable = false, length = 5))
+    @AttributeOverride(name = "compId", column = @Column(name = "comp_data_id", nullable = false, length = 20)) // 構成データID
+    @AttributeOverride(name = "compTableId", column = @Column(name = "comp_table_id", nullable = false, length = 5)) // 構成内ID
     private ComponentDataId componentDataId;
 
-    @Column(name = "data_id", nullable = true, length = 10)
-    private String parentId;
+    @Column(name = "data_id", length = 10)
+    private String parentId;// データID
 
-    @Column(name = "ref_comp_data_id", nullable = true, length = 20)
-    private String nameId;
+    @Column(name = "ref_comp_data_id", length = 20)
+    private String nameId;// 参照構成データID
 }

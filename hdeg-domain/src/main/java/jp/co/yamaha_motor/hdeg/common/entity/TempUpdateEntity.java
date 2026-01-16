@@ -6,7 +6,6 @@ import java.io.Serializable;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,25 +15,26 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "numbering", schema = "egdb")
+@Table(name = "temp_update", schema = "egdb")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @Setter
 @ToString()
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class NumberingEntity extends BaseEntity implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class TempUpdateEntity extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "table_name", nullable = false, length = 50)
-    private String tableName;// テーブル名
+    @Column(name = "data_id", nullable = false, length = 5)
+    private String dataId; // データID
 
-    @Column(name = "prefix", length = 10)
-    private String prefix; // 接頭語
+    @Column(name = "value1", length = 4000)
+    private String value1; // 更新値1
 
-    @Column(name = "num", precision = 10, scale = 0)
-    private Integer num; // 番号
+    @Column(name = "value2", length = 4000)
+    private String value2; // 更新値2
+
+    @Column(name = "value3", length = 4000)
+    private String value3; // 更新値3
 }

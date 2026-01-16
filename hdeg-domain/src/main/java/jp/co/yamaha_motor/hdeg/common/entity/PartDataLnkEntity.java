@@ -16,25 +16,23 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "numbering", schema = "egdb")
+@Table(name = "part_data_lnk", schema = "egdb")
 @DynamicInsert
 @DynamicUpdate
 @Getter
 @Setter
 @ToString()
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class NumberingEntity extends BaseEntity implements Serializable {
+public class PartDataLnkEntity extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "table_name", nullable = false, length = 50)
-    private String tableName;// テーブル名
+    @Column(name = "data_id", unique = true, nullable = false, length = 20)
+    private String dataId;// データID
 
-    @Column(name = "prefix", length = 10)
-    private String prefix; // 接頭語
+    @Column(name = "part_id", nullable = false, length = 20)
+    private String partId;// 部品ID
 
-    @Column(name = "num", precision = 10, scale = 0)
-    private Integer num; // 番号
 }
