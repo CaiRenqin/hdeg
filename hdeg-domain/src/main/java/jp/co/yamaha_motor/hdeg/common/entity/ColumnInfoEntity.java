@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "column_info", schema = "egdb")
+@Table(name = "column_info", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -34,7 +34,7 @@ public class ColumnInfoEntity extends BaseEntity implements Serializable {
     @AttributeOverride(name = "columnId", column = @Column(name = "column_id", nullable = false, length = 5)) // カラムID
     private ColumnInfoId columnInfoId;
 
-    @Column(name = "column_nm_j", length = 100)
+    @Column(name = "column_nm_j", nullable = false, length = 100)
     private String columnNmJ;// カラム名日本語
 
     @Column(name = "column_nm_e", length = 50)

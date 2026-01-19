@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -18,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "data", schema = "egdb")
+@Table(name = "data", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -45,6 +45,6 @@ public class DataEntity extends BaseEntity implements Serializable {
     @Column(name = "ref_column_id", length = 5)
     private String refColumnId;// 外部参照カラムＩＤ
 
-    @Column(name = "batch_update_date")
+    @Column(name = "batch_update_date", columnDefinition = "timestamp(6)")
     private LocalDateTime batchUpdateDate;// バッチ更新日時
 }

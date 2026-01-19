@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "if_model", schema = "egdb")
+@Table(name = "if_model", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter

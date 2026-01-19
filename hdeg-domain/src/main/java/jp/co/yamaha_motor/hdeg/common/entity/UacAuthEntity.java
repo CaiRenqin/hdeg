@@ -5,9 +5,8 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -18,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "uac_auth", schema = "egdb")
+@Table(name = "uac_auth", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -31,9 +30,8 @@ public class UacAuthEntity extends BaseEntity implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
-    @AttributeOverrides({
-            @AttributeOverride(name = "groupId", column = @Column(name = "group_id", nullable = false, length = 9)), // グループID
-            @AttributeOverride(name = "userId", column = @Column(name = "user_id", nullable = false, length = 9)) }) // ユーザーID
+    @AttributeOverride(name = "groupId", column = @Column(name = "group_id", nullable = false, length = 9)) // グループID
+    @AttributeOverride(name = "userId", column = @Column(name = "user_id", nullable = false, length = 9)) // ユーザーID
     private UacAuthId uacAuthId;
 
     @Column(name = "user_nm", length = 60)

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "product", schema = "egdb")
+@Table(name = "product", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -63,6 +63,6 @@ public class ProductEntity extends BaseEntity implements Serializable {
     @Column(name = "specs_last_update_user", length = 10)
     private String specsLastUpdateUser; // 諸元最終更新者
 
-    @Column(name = "specs_last_update_date")
+    @Column(name = "specs_last_update_date", columnDefinition = "timestamp(6)")
     private LocalDateTime specsLastUpdateDate; // 諸元最終更新日
 }

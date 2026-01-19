@@ -18,19 +18,19 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class BaseEntity implements Auditable {
 
     @CreatedBy
-    @Column(name = "create_user")
+    @Column(name = "create_user", length = 10)
     private String createdBy; // 作成者
 
     @CreatedDate
-    @Column(name = "create_date")
+    @Column(name = "create_date", columnDefinition = "timestamp(6)")
     private LocalDateTime dateCreated; // 作成日
 
     @LastModifiedBy
-    @Column(name = "update_user")
+    @Column(name = "update_user", length = 10)
     private String lastUpdatedBy; // 更新者
 
     @LastModifiedDate
-    @Column(name = "update_date")
+    @Column(name = "update_date", columnDefinition = "timestamp(6)")
     private LocalDateTime lastUpdated; // 更新日
 
     @Version

@@ -5,9 +5,8 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -18,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "part_table_lnk", schema = "egdb")
+@Table(name = "part_table_lnk", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -31,11 +30,10 @@ public class PartTableLnkEntity extends BaseEntity implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
-    @AttributeOverrides({
-            @AttributeOverride(name = "sectionPartId", column = @Column(name = "section_part_id", nullable = false, length = 5)), // セクション・部位部品ID
-            @AttributeOverride(name = "tableId", column = @Column(name = "table_id", nullable = false, length = 10)), // テーブルID
-            @AttributeOverride(name = "compId", column = @Column(name = "comp_id", nullable = false, length = 10)), // 構成ID
-            @AttributeOverride(name = "compTableId", column = @Column(name = "comp_table_id", nullable = false, length = 5)) }) // 構成内ID
+    @AttributeOverride(name = "sectionPartId", column = @Column(name = "section_part_id", nullable = false, length = 5)) // セクション・部位部品ID
+    @AttributeOverride(name = "tableId", column = @Column(name = "table_id", nullable = false, length = 10)) // テーブルID
+    @AttributeOverride(name = "compId", column = @Column(name = "comp_id", nullable = false, length = 10)) // 構成ID
+    @AttributeOverride(name = "compTableId", column = @Column(name = "comp_table_id", nullable = false, length = 5)) // 構成内ID
     private PartTableLnkId partTableLnkId;
 
     @Column(name = "column_id", length = 5)

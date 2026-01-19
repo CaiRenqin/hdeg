@@ -6,9 +6,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -19,7 +18,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "specs_model_info", schema = "egdb")
+@Table(name = "specs_model_info", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -32,9 +31,8 @@ public class SpecsModelInfoEntity extends BaseEntity implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
-    @AttributeOverrides({
-            @AttributeOverride(name = "model", column = @Column(name = "model", nullable = false, length = 10)), // 登録型式
-            @AttributeOverride(name = "inputItemCode", column = @Column(name = "input_item_code", nullable = false, length = 10)) }) // 入力項目ID
+    @AttributeOverride(name = "model", column = @Column(name = "model", nullable = false, length = 10)) // 登録型式
+    @AttributeOverride(name = "inputItemCode", column = @Column(name = "input_item_code", nullable = false, length = 10)) // 入力項目ID
     private SpecsModelInfoId specsModelInfoId;
 
     @Column(name = "approval_date", columnDefinition = "timestamp(6)")

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
+import jp.co.yamaha_motor.hdeg.common.constants.CommonConstants;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "component", schema = "egdb")
+@Table(name = "component", schema = CommonConstants.SCHEMA)
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -46,9 +46,9 @@ public class ComponentEntity extends BaseEntity implements Serializable {
     @Column(name = "ref_table_id", length = 10)
     private String refTableId;// 参照構成ID
 
-    @Column(name = "sort_id", precision = 1, scale = 0)
+    @Column(name = "sort_id", precision = 4, scale = 0)
     private Integer sortId;// 表示順
 
-    @Column(name = "column_nm_j", precision = 1, scale = 0)
-    private Integer columnNmJ;// 有効
+    @Column(name = "enable_flg", precision = 1, scale = 0)
+    private Integer enableFig;// 有効
 }
