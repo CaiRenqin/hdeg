@@ -2,7 +2,6 @@ package jp.co.yamaha_motor.hdeg.web.app.controller.hdegz12;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
 import jp.co.yamaha_motor.hdeg.common.util.XMLUtil;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResultDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.facade.HDEGZ12Facade;
