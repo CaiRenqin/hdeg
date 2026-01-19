@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.yamaha_motor.hdeg.common.entity.VersionEntity;
 import jp.co.yamaha_motor.hdeg.common.repository.VersionRepository;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResultDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResponseDTO;
 
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +23,7 @@ public class HDEGZ12Service {
      *
      * @return 最新バージョンのDTO
      */
-    public HDEGZ12ResultDTO getLatestVersion() {
+    public HDEGZ12ResponseDTO getLatestVersion() {
         VersionEntity entity = versionRepository.getVersionInfo()
                 .orElse(new VersionEntity());
         return convertEntityToDTO(entity);
@@ -35,8 +35,8 @@ public class HDEGZ12Service {
      * @param entity 変換元のエンティティ
      * @return 変換後のDTO
      */
-    private HDEGZ12ResultDTO convertEntityToDTO(VersionEntity entity) {
-        HDEGZ12ResultDTO dto = new HDEGZ12ResultDTO();
+    private HDEGZ12ResponseDTO convertEntityToDTO(VersionEntity entity) {
+        HDEGZ12ResponseDTO dto = new HDEGZ12ResponseDTO();
 
         if (entity.getVersionId() == null) {
             return dto;
@@ -49,7 +49,7 @@ public class HDEGZ12Service {
         if (entity.getLastUpdated() != null) {
             String formatted = entity.getLastUpdated().format(
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-            dto.setUpdateDate(new HDEGZ12ResultDTO.SqlTimestamp(formatted));
+            dto.setUpdateDate(new HDEGZ12ResponseDTO.SqlTimestamp(formatted));
         }
 
         return dto;

@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ParameterDTO;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ResultDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13RequestDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ResponseDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.service.HDEGZ13Service;
 
 @Component
@@ -22,8 +22,8 @@ public class HDEGZ13Facade {
      * @param request リクエストDTO
      * @return 結果DTO
      */
-    public HDEGZ13ResultDTO updateSheetNumbering(
-            @ModelAttribute HDEGZ13ParameterDTO request) {
+    public HDEGZ13ResponseDTO updateSheetNumbering(
+            @ModelAttribute HDEGZ13RequestDTO request) {
         String tableName = request.getScreenModel().getTableName();
 
         if (tableName == null || tableName.isEmpty()) {
@@ -32,6 +32,6 @@ public class HDEGZ13Facade {
             numberingId = hdegz13Service.updateNumberingAndSave(tableName);
         }
 
-        return new HDEGZ13ResultDTO(numberingId);
+        return new HDEGZ13ResponseDTO(numberingId);
     }
 }

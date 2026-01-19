@@ -8,7 +8,7 @@ import jakarta.xml.bind.annotation.XmlValue;
 
 @Data
 @XmlType(propOrder = { "majorVer", "minorVer", "releaseVer", "updateDate" })
-public class HDEGZ12ResultDTO {
+public class HDEGZ12ResponseDTO {
     private String majorVer;
     private String minorVer;
     private String releaseVer;

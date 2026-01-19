@@ -29,6 +29,6 @@ import com.ymsl.solid.jpa.repository.JpaExtensionRepositoryFactoryBean;
 // "jp.co.yamaha_motor.hdeg.hdeg.*.repository", }, repositoryFactoryBeanClass =
 // JpaExtensionRepositoryFactoryBean.class)
 @ImportAutoConfiguration({ DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-        ExternalSqlConfiguration.class })
+                ExternalSqlConfiguration.class })
 public class DomainTestConfiguration {
 }

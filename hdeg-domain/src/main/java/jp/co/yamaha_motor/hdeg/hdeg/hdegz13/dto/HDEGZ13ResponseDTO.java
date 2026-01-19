@@ -7,6 +7,6 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HDEGZ13ResultDTO {
+public class HDEGZ13ResponseDTO {
     private String numberingId;
 }

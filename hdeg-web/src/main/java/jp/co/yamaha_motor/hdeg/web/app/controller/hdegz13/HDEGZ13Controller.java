@@ -3,8 +3,8 @@ package jp.co.yamaha_motor.hdeg.web.app.controller.hdegz13;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jp.co.yamaha_motor.hdeg.common.util.XMLUtil;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ResultDTO;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ParameterDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13ResponseDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.dto.HDEGZ13RequestDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz13.facade.HDEGZ13Facade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,9 +34,9 @@ public class HDEGZ13Controller {
     @Operation(summary = "採番処理", description = "採番処理(HDEGZ13-P001)")
     @PostMapping(value = "/HDEGZ13UpdateSheetNumbering", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     public String updateSheetNumbering(
-            @ModelAttribute HDEGZ13ParameterDTO request) {
-        HDEGZ13ResultDTO numbering = hdegz13Facade.updateSheetNumbering(request);
-        List<HDEGZ13ResultDTO> numberingList = new ArrayList<>(List.of(numbering));
-        return XMLUtil.convDao2Xml(numberingList, HDEGZ13ResultDTO.class);
+            @ModelAttribute HDEGZ13RequestDTO request) {
+        HDEGZ13ResponseDTO numbering = hdegz13Facade.updateSheetNumbering(request);
+        List<HDEGZ13ResponseDTO> numberingList = new ArrayList<>(List.of(numbering));
+        return XMLUtil.convDao2Xml(numberingList, HDEGZ13ResponseDTO.class);
     }
 }

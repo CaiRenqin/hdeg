@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
 
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResultDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResponseDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.service.HDEGZ12Service;
 
 @Component
@@ -13,7 +13,7 @@ public class HDEGZ12Facade {
 
     private final HDEGZ12Service hdegz12Service;
 
-    public HDEGZ12ResultDTO getLatestVersion() {
+    public HDEGZ12ResponseDTO getLatestVersion() {
         return hdegz12Service.getLatestVersion();
     }
 

@@ -30,7 +30,7 @@ public class ComponentDataEntity extends BaseEntity implements Serializable {
 
     @EmbeddedId
     @EqualsAndHashCode.Include
-    @AttributeOverride(name = "compId", column = @Column(name = "comp_data_id", nullable = false, length = 20)) // 構成データID
+    @AttributeOverride(name = "compDataId", column = @Column(name = "comp_data_id", nullable = false, length = 20)) // 構成データID
     @AttributeOverride(name = "compTableId", column = @Column(name = "comp_table_id", nullable = false, length = 5)) // 構成内ID
     private ComponentDataId componentDataId;
 
