@@ -50,5 +50,5 @@ public class ComponentEntity extends BaseEntity implements Serializable {
     private Integer sortId;// 表示順
 
     @Column(name = "enable_flg", precision = 1, scale = 0)
-    private Integer enableFig;// 有効
+    private Integer enableFlg;// 有効
 }
