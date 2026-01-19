@@ -3,7 +3,7 @@ package jp.co.yamaha_motor.hdeg.web.app.controller.hdegz12;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jp.co.yamaha_motor.hdeg.common.util.XMLUtil;
-import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResultDTO;
+import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.dto.HDEGZ12ResponseDTO;
 import jp.co.yamaha_motor.hdeg.hdeg.hdegz12.facade.HDEGZ12Facade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +30,8 @@ public class HDEGZ12Controller {
     @Operation(summary = "バージョン情報検索", description = "バージョン情報を取得する(HDEGZ12-P001)")
     @PostMapping(value = "/HDEGZ12UpdateSheetGetVersionList", produces = MediaType.APPLICATION_XML_VALUE)
     public String getVersionList() {
-        HDEGZ12ResultDTO version = hdegz12Facade.getLatestVersion();
-        List<HDEGZ12ResultDTO> versionList = new ArrayList<>(List.of(version));
-        return XMLUtil.convDao2Xml(versionList, HDEGZ12ResultDTO.class);
+        HDEGZ12ResponseDTO version = hdegz12Facade.getLatestVersion();
+        List<HDEGZ12ResponseDTO> versionList = new ArrayList<>(List.of(version));
+        return XMLUtil.convDao2Xml(versionList, HDEGZ12ResponseDTO.class);
     }
 }

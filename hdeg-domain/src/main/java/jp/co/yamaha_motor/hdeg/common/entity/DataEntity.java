@@ -34,7 +34,7 @@ public class DataEntity extends BaseEntity implements Serializable {
     @AttributeOverride(name = "dataId", column = @Column(name = "data_id", nullable = false, length = 20)) // データID
     @AttributeOverride(name = "tableId", column = @Column(name = "table_id", nullable = false, length = 10)) // テーブルID
     @AttributeOverride(name = "columnId", column = @Column(name = "column_id", nullable = false, length = 5)) // カラムID
-    private DataEntityId dataEntityId;
+    private DataInfoId dataInfoId;
 
     @Column(name = "data", length = 500)
     private String data;// 値

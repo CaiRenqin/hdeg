@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = { "dataId", "tableId", "columnId" })
-public class DataEntityId implements Serializable {
+public class DataInfoId implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
