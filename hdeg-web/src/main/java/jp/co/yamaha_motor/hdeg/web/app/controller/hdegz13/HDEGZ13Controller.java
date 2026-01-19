@@ -29,15 +29,13 @@ public class HDEGZ13Controller {
     /**
      * 採番処理
      *
-     * @param request  リクエストDTO
-     * @param response HTTPレスポンス
+     * @param request リクエストDTO
      * @return XML形式の結果
      */
     @Operation(summary = "採番処理", description = "採番処理(HDEGZ13-P001)")
     @PostMapping(value = "/HDEGZ13UpdateSheetNumbering", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
     public String updateSheetNumbering(
-            @ModelAttribute HDEGZ13ParameterDTO request,
-            HttpServletResponse response) {
+            @ModelAttribute HDEGZ13ParameterDTO request) {
         HDEGZ13ResultDTO numbering = hdegz13Facade.updateSheetNumbering(request);
         List<HDEGZ13ResultDTO> numberingList = new ArrayList<>(List.of(numbering));
         return XMLUtil.convDao2Xml(numberingList, HDEGZ13ResultDTO.class);
